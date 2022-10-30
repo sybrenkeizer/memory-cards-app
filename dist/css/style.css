@@ -1,0 +1,357 @@
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+          appearance: none;
+}
+
+.scene {
+  perspective: 3000px;
+}
+
+.cube {
+  width: 35rem;
+  height: 35rem;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 1s ease;
+}
+.cube__side {
+  position: absolute;
+  opacity: 0.9;
+}
+.cube__side--main {
+  transform: rotate(0) translate3d(0, 0, 17.5rem);
+}
+.cube__side--edit {
+  transform: rotateY(-90deg) translate3d(0, 0, 17.5rem);
+}
+.cube__side--create {
+  transform: rotateY(90deg) translate3d(0, 0, 17.5rem);
+}
+.cube__side--practice {
+  transform: rotateX(90deg) translate3d(0, 0, 17.5rem);
+}
+.cube__side--bottom {
+  transform: rotateX(-90deg) translate3d(0, 0, 17.5rem);
+}
+.cube__side--back {
+  transform: rotateY(180deg) translate3d(0, 0, 17.5rem);
+}
+
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section {
+  width: inherit;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  padding: calc(clamp(0.5rem, 0.4rem + 0.3vw, 1rem) * 2);
+  background-color: hsl(0deg, 0%, 94%);
+  border: 0.25rem solid hsl(259deg, 73%, 9%);
+  border-radius: 0.35rem;
+}
+.section .section-title-header {
+  position: relative;
+  text-align: center;
+}
+.section .section-title-header .exit-section-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(180deg);
+  font-size: 1.4em;
+}
+
+.form-control {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: 0.15rem solid hsl(259deg, 73%, 9%);
+  border-radius: 0.35rem;
+  color: hsl(259deg, 73%, 9%);
+  transition: box-shadow 0.3s ease-in-out;
+}
+.form-control:hover {
+  box-shadow: -0.1rem -0.1rem 0.2rem hsla(0deg, 0%, 5%, 0.4), 0.1rem 0.1rem 0.2rem hsla(0deg, 0%, 5%, 0.4), 0.2rem 0.2rem 0.2rem hsla(0deg, 0%, 5%, 0.4), 0.2rem 0.2rem 0.2rem hsla(0deg, 0%, 5%, 0.4);
+}
+.form-control label,
+.form-control select,
+.form-control input,
+.form-control button,
+.form-control textarea {
+  padding: 0.5em;
+}
+.form-control select,
+.form-control input {
+  background-color: hsl(259deg, 73%, 9%);
+  color: hsl(0deg, 0%, 100%);
+  transition: color 0.3s ease-in-out;
+}
+.form-control button {
+  width: 100%;
+  background-color: hsl(0deg, 0%, 94%);
+  color: hsl(259deg, 73%, 9%);
+  font-weight: 500;
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+.form-control button:hover {
+  background-color: hsl(0deg, 0%, 100%);
+}
+.form-control textarea {
+  resize: none;
+  width: 100%;
+}
+
+.popup {
+  min-width: 22rem;
+  position: absolute;
+  top: -1%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  padding: 1.5em;
+  background-color: hsl(259deg, 73%, 9%);
+  border-radius: 0.35rem;
+  color: hsl(0deg, 0%, 94%);
+  font-weight: 500;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+  z-index: 99;
+}
+.popup p {
+  margin-bottom: 1.5em;
+}
+.popup .buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  color: hsl(0deg, 0%, 94%);
+}
+.popup .buttons button {
+  padding: 0.7em 1.2em;
+  background-color: hsl(259deg, 73%, 9%);
+  border: 0.1rem solid hsl(0deg, 0%, 100%);
+  cursor: pointer;
+}
+
+.popup.show {
+  transform: translate(-50%, 0);
+}
+
+.mark-placeholder::-moz-placeholder {
+  color: red;
+  opacity: 1;
+}
+
+.mark-placeholder:-ms-input-placeholder {
+  color: red;
+  opacity: 1;
+}
+
+.mark-placeholder::placeholder {
+  color: red;
+  opacity: 1;
+}
+
+.section-main {
+  gap: calc(clamp(0.5rem, 0.4rem + 0.3vw, 1rem) * 3);
+}
+.section-main .form-control select,
+.section-main .form-control input {
+  width: 65%;
+}
+.section-main .form-control button {
+  width: 35%;
+}
+
+.section-create {
+  gap: calc(clamp(0.5rem, 0.4rem + 0.3vw, 1rem) * 2);
+}
+.section-create .form-control button {
+  width: 100%;
+}
+.section-create .add-card-header {
+  visibility: hidden;
+  display: grid;
+  grid-template-columns: 3rem 1fr 1fr;
+  font-weight: 700;
+  height: 0.8rem;
+  padding-inline: 0.4em;
+}
+.section-create .add-card-header.show {
+  visibility: visible;
+}
+.section-create ul {
+  height: 10rem;
+  overflow: auto;
+}
+.section-create ul li {
+  display: grid;
+  grid-template-columns: 3rem 1fr 1fr;
+  margin-block: 0.3em;
+  padding: 0.2em 0.4em;
+  border: 0.1rem solid transparent;
+  border-radius: 0.35rem;
+  transition: border 0.1s ease-in-out;
+  cursor: pointer;
+}
+.section-create ul li:hover {
+  border: 0.1rem solid hsl(259deg, 73%, 9%);
+}
+
+.section-edit {
+  gap: clamp(0.5rem, 0.4rem + 0.3vw, 1rem);
+}
+.section-edit .form-control label {
+  width: 30%;
+}
+.section-edit .form-control input,
+.section-edit .form-control textarea {
+  width: 70%;
+  background-color: hsl(259deg, 73%, 9%);
+  color: hsl(0deg, 0%, 94%);
+}
+.section-edit .edit-card-header {
+  display: grid;
+  grid-template-columns: 3rem 1fr 1fr 2rem;
+  font-weight: 700;
+  height: 0.8rem;
+  padding-inline: 0.4em;
+}
+.section-edit ul {
+  height: 14rem;
+  overflow: auto;
+}
+.section-edit ul li {
+  display: grid;
+  grid-template-columns: 3rem 1fr 1fr 2rem;
+  margin-block: 0.3em;
+  padding: 0.2em 0.4em;
+  border: 0.1rem solid transparent;
+  border-radius: 0.35rem;
+  transition: border 0.1s ease-in-out;
+  cursor: pointer;
+}
+.section-edit ul li:hover {
+  border: 0.1rem solid hsl(259deg, 73%, 9%);
+}
+.section-edit ul li:hover .edit-deck-delete-card-btn {
+  visibility: visible;
+}
+.section-edit ul li .edit-deck-delete-card-btn {
+  visibility: hidden;
+  transition: visibility 0.1s ease-in-out;
+  text-align: center;
+}
+
+.section-practice .cards-container {
+  width: 85%;
+  height: 80%;
+  position: relative;
+  perspective: 700px;
+  margin: auto;
+}
+.section-practice .cards-container .card-outer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  font-size: 1.3rem;
+  transition: transform 1.2s ease, opacity 0.8s ease;
+}
+.section-practice .cards-container .card-outer .card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: hsl(259deg, 73%, 9%);
+  border-radius: 0.35rem;
+  color: hsl(0deg, 0%, 94%);
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease-in-out;
+}
+.section-practice .cards-container .card-outer .card-inner .card-inner--front,
+.section-practice .cards-container .card-outer .card-inner .card-inner--back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(clamp(0.5rem, 0.4rem + 0.3vw, 1rem) * 3);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+.section-practice .cards-container .card-outer .card-inner .card-inner--front {
+  transform: rotateX(0);
+  z-index: 2;
+}
+.section-practice .cards-container .card-outer .card-inner .card-inner--back {
+  transform: rotateX(180deg);
+}
+.section-practice .cards-container .card-outer.right {
+  transform: translateX(105%) rotateY(-30deg);
+}
+.section-practice .cards-container .card-outer.left {
+  transform: translateX(-105%) rotateY(30deg);
+}
+.section-practice .cards-container .card-outer.current-card {
+  opacity: 1 !important;
+  z-index: 99;
+  transform: translateX(0) rotateY(0);
+}
+.section-practice .cards-container .card-outer.flip .card-inner {
+  transform: rotateX(180deg);
+}
+.section-practice .deck-nav {
+  width: 50%;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  margin-inline: auto;
+}/*# sourceMappingURL=style.css.map */

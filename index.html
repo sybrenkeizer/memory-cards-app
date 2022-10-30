@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Trispace:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./dist/css/style.css">
+  <script src="app.js" defer></script>
+  <title>Memory Cards</title>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="scene">
+      <div id="cube" class="cube">
+
+
+        <!-- Main menu section -->
+        <section class="cube__side cube__side--main section section-main">
+
+          <header class="section-title-header">
+            <h1 class="section-create__title section__title">Memory Cards</h1>
+          </header>
+
+          <div class="form-control">
+            <select id="select-practice__menu">
+              <option selected disabled value="">Choose a deck to practice</option>
+            </select>
+            <button id="select-practice__btn">Practice</button>
+          </div>
+
+          <div class="form-control">
+            <select id="select-edit__menu">
+              <option selected disabled value="">Choose a deck to edit</option>
+            </select>
+            <button id="select-edit__btn">Edit</button>
+          </div>
+
+          <div class="form-control">
+            <input type="text" id="input-create__text" placeholder="Create a new deck" autocomplete="off">
+            <button id="input-create__btn">Create</button>
+          </div>
+
+        </section>
+
+
+        <!-- Create deck section -->
+        <section class="cube__side cube__side--create section section-create">
+
+          <header class="section-title-header">
+            <h2 class="section-create__title section__title">New Deck: <span id="section-create__deck-title"></span></h2>
+            <a href="#" id="exit-create-deck-section-btn" class="exit-section-btn">
+              <i class="fa-solid fa-arrow-right-from-bracket" ></i>
+            </a>
+          </header>
+
+          <div class="form-control">
+            <textarea id="input-question__text" placeholder="Enter question..." rows="2"></textarea>
+          </div>
+
+          <div class="form-control">
+            <textarea id="input-answer__text" placeholder="Enter answer..." rows="2"></textarea>
+          </div>
+
+          <div class="form-control">
+            <button id="add-card-btn">Add card</button>
+          </div>
+
+          <header class="add-card-header">
+            <span>#</span>
+            <span>Question</span>
+            <span>Answer</span>
+          </header>
+
+          <ul id="add-card-list"></ul>
+
+          <div class="form-control">
+            <button id="create-deck-btn">Create Deck</button>
+          </div>
+
+        </section>
+
+
+        <!-- Edit deck section -->
+        <section class="cube__side cube__side--edit section section-edit">
+
+          <header class="section-title-header">
+            <h2 class="section-edit__title section__title">Edit Deck: <span id="section-edit__deck-title"></span></h2>
+            <a href="#" id="exit-edit-deck-section-btn" class="exit-section-btn">
+              <i class="fa-solid fa-arrow-right-from-bracket" ></i>
+            </a>
+          </header>
+          
+          <div class="form-control">
+            <label for="edit-deck-title-input">Edit Title</label>
+            <input id="edit-deck-title-input" type="text">
+          </div>
+
+          <div class="form-control">
+            <label for="edit-card-index-input">Edit Index</label>
+            <input id="edit-card-index-input" type="number">
+          </div>
+
+          <div class="form-control">
+            <label for="edit-card-question-input">Edit Question</label>
+            <textarea id="edit-card-question-input" rows="2"></textarea>
+          </div>
+
+          <div class="form-control">
+            <label for="edit-card-answer-input">Edit Answer</label>
+            <textarea id="edit-card-answer-input" rows="2"></textarea>
+          </div>
+
+          <header class="edit-card-header">
+            <span>#</span>
+            <span>Question</span>
+            <span>Answer</span>
+          </header>
+
+          <ul id="edit-card-list"></ul>
+
+          <div class="form-control">
+            <button id="edit-deck__save-btn">Save changes</button>
+          </div>
+
+
+        </section>
+
+
+        <!-- Practice deck section -->
+        <section class="cube__side cube__side--practice section section-practice">
+
+          <header class="section-title-header">
+            <h2 class="section-practice__title section__title">Practice: <span id="section-practice__deck-title"></span></h2>
+            <a href="#" id="exit-practice-deck-section-btn" class="exit-section-btn">
+              <i class="fa-solid fa-arrow-right-from-bracket" ></i>
+            </a>
+          </header>
+
+          <div id="cards-container" class="cards-container"></div>
+
+          <div id="deck-nav" class="deck-nav">
+            <a id="prev-card-btn" href="#">
+              <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <span id="card-progress-text">1 / 10</span>
+            <a id="next-card-btn" href="#">
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+        </section>
+
+
+        <!-- For visual purpose / future functions -->
+        <section class="cube__side cube__side--bottom section"></section>
+        <section class="cube__side cube__side--back section"></section>
+
+      </div> <!-- CLOSE cube-->
+    </div> <!-- CLOSE scene-->
+  </div> <!-- CLOSE wrapper-->
+
+  <!-- Popup notification -->
+  <div id="popup" class="popup"></div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+@use './variables' as v;
+
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section {
+  width: inherit;
+  height: inherit;
+  display: flex;  
+  flex-direction: column;
+  padding: v.$spc-md;
+  background-color: v.$clr-light;
+  border: 0.25rem solid v.$clr-dark;
+  border-radius: v.$radius;
+
+  .section-title-header {
+    position: relative;
+    text-align: center;
+    
+    .exit-section-btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: rotate(180deg);
+      font-size: 1.4em;
+    }
+  }
+}
+
+.form-control {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: 0.15rem solid v.$clr-dark;
+  border-radius: v.$radius;
+  color: v.$clr-dark;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: v.$bs-item-hover;
+  }
+
+  label,
+  select,
+  input,
+  button,
+  textarea {
+    padding: 0.5em;
+  }
+
+  select,
+  input {
+    background-color: v.$clr-dark;
+    color: v.$clr-white;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  button {
+    width: 100%;
+    background-color: v.$clr-light;
+    color: v.$clr-dark;
+    font-weight: v.$fw-thick;
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background-color: v.$clr-white;
+    }
+  }
+
+  textarea {
+    resize: none;
+    width: 100%;
+  }
+}
+
+.popup {
+  min-width: 22rem;
+  position: absolute;
+  top: -1%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  padding: 1.5em;
+  background-color: v.$clr-dark;
+  border-radius: v.$radius;
+  color: v.$clr-light;
+  font-weight: v.$fw-thick;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+  z-index: 99;
+
+  p {
+    margin-bottom: 1.5em;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    color: v.$clr-light;
+
+    button {
+      padding: 0.7em 1.2em;
+      background-color: v.$clr-dark;
+      border: 0.1rem solid v.$clr-white;
+      cursor: pointer;
+    }
+  }
+}
+
+.popup.show {
+  transform: translate(-50%, 0);
+}
+
+.mark-placeholder::placeholder {
+  color: red;
+  opacity: 1;
+}

@@ -1,0 +1,47 @@
+// Font family
+$ff-primary: 'Montserrat', sans-serif;
+$ff-secondary: 'Trispace', sans-serif;
+
+// Font size
+// $fs-h1: clamp(1.7rem, 1.4rem + 0.9vw, 2.1rem);
+$fs-h1: 2rem;
+// $fs-h2: clamp(1.5rem, 1.3rem + 0.6vw, 1.8rem);
+$fs-h2: 1.6rem;
+
+// Font weight
+$fw-light: 300;
+$fw-regular: 400;
+$fw-thick: 500;
+$fw-bold: 700;
+
+// Color
+$clr-white: hsl(0, 0%, 100%);
+$clr-light: hsl(0, 0%, 94%);
+$clr-dark: hsl(259, 73%, 9%);
+$clr-accent-light: hsl(282, 100%, 84%);
+$clr-accent-dark: hsl(270, 56%, 35%);
+
+// Border radius
+$radius: 0.35rem;
+
+// Spacer
+$spc-sm: clamp(0.5rem, 0.4rem + 0.3vw, 1rem);
+$spc-md: calc($spc-sm * 2);
+$spc-lg: calc($spc-sm * 3);
+$spc-xl: calc($spc-sm * 4);
+
+// Box shadow
+$bs-item:
+  -0.1rem -0.1rem 0.2rem hsla(0, 0%, 30%, 0.5),
+  0.1rem 0.1rem 0.2rem hsla(0, 0%, 30%, 0.5),
+  0.1rem 0.1rem 0.2rem hsla(0, 0%, 30%, 0.5),
+  0.2rem 0.2rem 0.2rem hsla(0, 0%, 30%, 0.5);
+
+$bs-item-hover:
+  -0.1rem -0.1rem 0.2rem hsla(0, 0%, 5%, 0.4),
+  0.1rem 0.1rem 0.2rem hsla(0, 0%, 5%, 0.4),
+  0.2rem 0.2rem 0.2rem hsla(0, 0%, 5%, 0.4),
+  0.2rem 0.2rem 0.2rem hsla(0, 0%, 5%, 0.4);
+
+// 3D
+$cube-length: 35rem;

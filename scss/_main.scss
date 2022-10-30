@@ -1,0 +1,213 @@
+@use './variables' as v;
+
+// Main Section
+.section-main {
+  gap: v.$spc-lg;
+
+  .form-control {
+
+    select,
+    input {
+      width: 65%;
+    }
+
+    button {
+      width: 35%;
+    }
+  }
+}
+
+
+
+// Create Deck Section
+.section-create {
+  gap: v.$spc-md;
+
+  
+  .form-control {
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .add-card-header {
+    visibility: hidden;
+    display: grid;
+    grid-template-columns: 3rem 1fr 1fr;
+    font-weight: v.$fw-bold;
+    height: 0.8rem;
+    padding-inline: 0.4em;
+  }
+  
+  .add-card-header.show {
+    visibility: visible;
+  }
+    
+  ul {
+    height: 10rem;
+    overflow: auto;
+
+    li {
+      display: grid;
+      grid-template-columns: 3rem 1fr 1fr;
+      margin-block: 0.3em;
+      padding: 0.2em 0.4em;
+      border: 0.1rem solid transparent;
+      border-radius: v.$radius;
+      transition: border 0.1s ease-in-out;
+      cursor: pointer;
+      
+      &:hover {
+        border: 0.1rem solid v.$clr-dark;
+      }
+    }
+  }
+}
+
+
+
+// Edit Deck Section
+.section-edit {
+  gap: v.$spc-sm;
+
+  .form-control {
+
+    label {
+      width: 30%;
+    }
+    
+    input,
+    textarea {
+      width: 70%;
+      background-color: v.$clr-dark;
+      color: v.$clr-light;
+    }
+  }
+
+  .edit-card-header {
+    display: grid;
+    grid-template-columns: 3rem 1fr 1fr 2rem;
+    font-weight: v.$fw-bold;
+    height: 0.8rem;
+    padding-inline: 0.4em;
+  }
+
+  ul {
+    height: 14rem;
+    overflow: auto;
+
+    li {
+      display: grid;
+      grid-template-columns: 3rem 1fr 1fr 2rem;
+      margin-block: 0.3em;
+      padding: 0.2em 0.4em;
+      border: 0.1rem solid transparent;
+      border-radius: v.$radius;
+      transition: border 0.1s ease-in-out;
+      cursor: pointer;
+      
+      &:hover {
+        border: 0.1rem solid v.$clr-dark;
+      }
+
+      &:hover .edit-deck-delete-card-btn {
+        visibility: visible;
+
+      }
+
+      .edit-deck-delete-card-btn {
+        visibility: hidden;
+        transition: visibility 0.1s ease-in-out;
+        text-align: center;
+      }
+    }
+  }
+}
+
+
+
+// Practice Deck Section
+.section-practice {
+  
+  .cards-container {
+    width: 85%;
+    height: 80%;
+    position: relative;
+    perspective: 700px;
+    margin: auto;
+    
+    .card-outer {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      opacity: 0;
+      font-size: 1.3rem;
+      transition: 
+        transform 1.2s ease, 
+        opacity 0.8s ease;
+      
+      .card-inner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: v.$clr-dark;
+        border-radius: v.$radius;
+        color: v.$clr-light;
+        transform-style: preserve-3d;
+        transition: transform 0.5s ease-in-out;
+
+        .card-inner--front,
+        .card-inner--back {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: v.$spc-lg;
+          backface-visibility: hidden;
+        }
+
+        .card-inner--front {
+          transform: rotateX(0);
+          z-index: 2;
+        }
+
+        .card-inner--back {
+          transform: rotateX(180deg);
+        }
+      }
+
+      &.right {
+        transform: translateX(105%) rotateY(-30deg);
+      }
+      
+      &.left {
+        transform: translateX(-105%) rotateY(30deg);
+      }
+  
+      &.current-card {
+        opacity: 1 !important;
+        z-index: 99;
+        transform: translateX(0) rotateY(0);
+      };
+  
+      &.flip .card-inner {
+        transform: rotateX(180deg);
+      }
+    }
+
+  };
+
+  .deck-nav {
+    width: 50%;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-around;
+    margin-inline: auto;
+  }
+}
+
+
+
