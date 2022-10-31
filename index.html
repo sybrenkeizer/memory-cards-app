@@ -35,15 +35,22 @@
           </div>
 
           <div class="form-control">
+            <input type="text" id="input-create__text" placeholder="Create a new deck" autocomplete="off">
+            <button id="input-create__btn">Create</button>
+          </div>
+
+          <div class="form-control">
             <select id="select-edit__menu">
               <option selected disabled value="">Choose a deck to edit</option>
             </select>
             <button id="select-edit__btn">Edit</button>
           </div>
-
+          
           <div class="form-control">
-            <input type="text" id="input-create__text" placeholder="Create a new deck" autocomplete="off">
-            <button id="input-create__btn">Create</button>
+            <select id="select-delete__menu">
+              <option selected disabled value="">Choose a deck to delete</option>
+            </select>
+            <button id="select-delete__btn">Delete</button>
           </div>
 
         </section>
@@ -99,11 +106,6 @@
           <div class="form-control">
             <label for="edit-deck-title-input">Edit Title</label>
             <input id="edit-deck-title-input" type="text">
-          </div>
-
-          <div class="form-control">
-            <label for="edit-card-index-input">Edit Index</label>
-            <input id="edit-card-index-input" type="number">
           </div>
 
           <div class="form-control">

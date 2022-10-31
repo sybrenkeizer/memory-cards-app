@@ -87,7 +87,7 @@
 
   .edit-card-header {
     display: grid;
-    grid-template-columns: 3rem 1fr 1fr 2rem;
+    grid-template-columns: 2rem 1fr 1fr 2rem 2rem;
     font-weight: v.$fw-bold;
     height: 0.8rem;
     padding-inline: 0.4em;
@@ -99,7 +99,7 @@
 
     li {
       display: grid;
-      grid-template-columns: 3rem 1fr 1fr 2rem;
+      grid-template-columns: 2rem 1fr 1fr 2rem 2rem;
       margin-block: 0.3em;
       padding: 0.2em 0.4em;
       border: 0.1rem solid transparent;
@@ -111,16 +111,21 @@
         border: 0.1rem solid v.$clr-dark;
       }
 
+      &:hover .edit-deck-edit-card-btn,
       &:hover .edit-deck-delete-card-btn {
         visibility: visible;
-
       }
 
+      .edit-deck-edit-card-btn,
       .edit-deck-delete-card-btn {
         visibility: hidden;
         transition: visibility 0.1s ease-in-out;
         text-align: center;
       }
+
+    }
+    .editing-card {
+      border: 0.1rem solid v.$clr-dark;
     }
   }
 }

@@ -29,6 +29,9 @@ const getDecksFromLS = () => {
 		: JSON.parse(localStorage.getItem('decks'));
 }
 
+const updateDecksFromLS = () => decks = getDecksFromLS();
+
+
 const returnToMainMenu = () => cube.style.transform = 'rotate(0)';
 
 const exitSection = (e) => {
@@ -46,6 +49,7 @@ const exitSection = (e) => {
 				resetCreateSectionInput();
 			} else  if (sectionBtn.id === 'exit-edit-deck-section-btn') {
 				resetEditDeckSection();
+				updateDecksFromLS();
 			} else  if (sectionBtn.id === 'exit-practice-deck-section-btn') {
 				resetPracticeDeckSection();
 			}
@@ -54,6 +58,8 @@ const exitSection = (e) => {
 };
 
 const capitalize = (string) => string[0].toUpperCase().concat(string.slice(1).toLowerCase());
+
+const truncateString = (string) => string.length > 20 ? string.substring(0, 20) + '...' : string;
 
 // ===== Event Listeners =====
 exitSectionBtns.forEach(btn => btn.addEventListener('click', exitSection));
@@ -66,16 +72,18 @@ exitSectionBtns.forEach(btn => btn.addEventListener('click', exitSection));
 // ===== Main Menu =====
 // =====================
 
-const decks = getDecksFromLS();
+let decks = getDecksFromLS();
 
 // ===== Elements =====
 const sectionMainMenus = document.querySelectorAll('.section-main select');
 const selectPracticeMenu = document.getElementById("select-practice__menu");
-const selectPracticeBtn = document.getElementById("select-practice__btn");
 const selectEditMenu = document.getElementById("select-edit__menu");
+const selectDeleteMenu = document.getElementById('select-delete__menu');
 const selectEditBtn = document.getElementById("select-edit__btn");
+const selectPracticeBtn = document.getElementById("select-practice__btn");
 const inputCreateText = document.getElementById("input-create__text");
 const inputCreateBtn = document.getElementById("input-create__btn");
+const selectDeleteBtn = document.getElementById('select-delete__btn');
 
 
 // ===== Functions ======
@@ -111,13 +119,13 @@ const validateTextInput = (e) => {
 	}
 };
 
-
 const setCreateDeckTitle = () => sectionCreateDeckTitle.textContent = capitalize(inputCreateText.value);
 
 const clearMainMenuInputFields = () => {
 	selectPracticeMenu.selectedIndex = 0;
   selectEditMenu.selectedIndex = 0;
   inputCreateText.value = '';
+	selectDeleteMenu.selectedIndex = 0;
 };
 
 const openCreateDeckSection = (e) => {
@@ -134,8 +142,10 @@ const openEditDeckSection = (e) => {
 	e.preventDefault();
 	if (!validateSelectMenu(e)) return;
 	cube.style.transform = 'rotateY(90deg)';
+	setSelectedEditDeckTopic();
 	setEditDeckTitle();
-	editDeckTitle();
+	setEditDeckTitleInput();
+	disableCardEditInputFields();
 	populateEditDeckCardList();
 	clearMainMenuInputFields();
 };
@@ -151,9 +161,18 @@ const openPracticeDeckSection = (e) => {
 	clearMainMenuInputFields();
 };
 
+const deleteDeck = (e) => {
+	e.preventDefault();
+	const selectedDeck = decks.find(deck => deck.topic === selectDeleteMenu.value)
+	const removeDeckIndex = decks.indexOf(selectedDeck);
+	decks.splice(removeDeckIndex, 1);
+	updateLS();
+	populateSectionMainMenus();
+	clearMainMenuInputFields();
+}
+
 const populateSectionMainMenus = () => {	
 	sectionMainMenus.forEach(menu => {
-		
 		Array.from(menu.children).forEach((option, index) => {
 			index >= 1 && menu.removeChild(option);
 		});
@@ -161,7 +180,7 @@ const populateSectionMainMenus = () => {
 		if (localStorage.getItem('decks') === null) return;
 			JSON.parse(localStorage.getItem('decks')).forEach(deck => {
 			const option = document.createElement('option');
-			const topic = capitalize(deck.topic);
+			const topic = deck.topic;
 			option.value = topic;
 			option.textContent = topic;
 			menu.appendChild(option);
@@ -176,7 +195,7 @@ inputCreateText.addEventListener("focus", clearMainMenuInputFields);
 selectPracticeBtn.addEventListener("click", openPracticeDeckSection);
 selectEditBtn.addEventListener("click", openEditDeckSection);
 inputCreateBtn.addEventListener("click", openCreateDeckSection);
-
+selectDeleteBtn.addEventListener('click', deleteDeck);
 
 
 
@@ -207,7 +226,7 @@ const clearCreateDeckInputFields = () => {
 
 const clearCreateDeckCardList = () => addCardList.innerHTML = '';
 
-const storeNewDeckTitle = () => newDeckTitle = capitalize(inputCreateText.value);
+const storeNewDeckTitle = () => newDeckTitle = inputCreateText.value;
 
 const showCreateDeckCardListHeader = () => {
 	newCards.length > 0 && addCardHeader.classList.add('show');
@@ -235,8 +254,8 @@ const addCard = () => {
 	cardLi.innerHTML = 
 	`
 		<span>${index + 1}</span>
-		<span>${question}</span>
-		<span>${answer}<span>
+		<span title="${capitalize(question)}">${truncateString(capitalize(question))}</span>
+		<span title="${capitalize(answer)}">${truncateString(capitalize(answer))}<span>
 	`;
 	
 	const newCard = { question, answer };
@@ -281,6 +300,11 @@ createDeckBtn.addEventListener('click', createDeck);
 // ===== Edit Deck Menu =======
 // ============================
 
+let selectedEditDeckTopic;
+let selectedEditCardIndex;
+let previousEditCardQuestionInput;
+let previousEditCardAnswerInput;
+
 // ===== Elements =====
 const sectionEditDeckTitle = document.getElementById('section-edit__deck-title');
 const editDeckTitleInput = document.getElementById('edit-deck-title-input');
@@ -288,37 +312,113 @@ const editCardIndexInput = document.getElementById('edit-card-index-input');
 const editCardQuestionInput = document.getElementById('edit-card-question-input');
 const editCardAnswerInput = document.getElementById('edit-card-answer-input');
 const editCardList = document.getElementById('edit-card-list');
+const editDeckSaveBtn = document.getElementById('edit-deck__save-btn');
 
 
 // ===== Functions =====
 
-const setEditDeckTitle = () => sectionEditDeckTitle.textContent = selectEditMenu.value;
+const setSelectedEditDeckTopic = () => selectedEditDeckTopic = selectEditMenu.value;
+const setEditDeckTitle = () => sectionEditDeckTitle.textContent = capitalize(selectedEditDeckTopic);
+const setEditDeckTitleInput = () => editDeckTitleInput.value = selectedEditDeckTopic
+const getSelectedDeck = () => decks.find(deck => deck.topic === selectedEditDeckTopic);
 
-const editDeckTitle = () => editDeckTitleInput.value = selectEditMenu.value;
+const editDeckEditCard = (e) => {
+	if (e.target.parentElement.classList.contains('edit-deck-edit-card-btn')) {
+		Array.from(editCardList.children).forEach(li => li.classList.remove('editing-card'));
+		const cardLi = e.target.parentElement.parentElement;
+		cardLi.classList.add('editing-card');
+		const cardLiChildren = Array.from(cardLi.children);
+		selectedEditCardIndex = cardLiChildren[0].textContent - 1;
 
-const editCardIndex = () => {
+		const selectedEditCard = getSelectedDeck().cards[selectedEditCardIndex];
 
-}
+		editCardQuestionInput.value = selectedEditCard.question;
+		editCardAnswerInput.value = selectedEditCard.answer;
 
-const editCardQuestion = () => {
+		previousEditCardQuestionInput = editCardQuestionInput.value;
+		previousEditCardAnswerInput = editCardAnswerInput.value;
+		enableCardEditInputFields();
+	};
+};
 
-}
+const disableCardEditInputFields = () => {
+	editCardQuestionInput.disabled = true;
+	editCardAnswerInput.disabled = true;
+};
 
-const editCardAnswer = () => {
+const enableCardEditInputFields = () => {
+	editCardQuestionInput.disabled = false;
+	editCardAnswerInput.disabled = false;
+};
 
-}
+const editDeckTitle = (e) => {
+	sectionEditDeckTitle.textContent = capitalize(editDeckTitleInput.value);
+
+	e.target.addEventListener('focusout', (e) => {
+		if (e.target.value === '') {
+			sectionEditDeckTitle.textContent = selectedEditDeckTopic;
+			editDeckTitleInput.value = selectedEditDeckTopic;
+		};
+	});
+};
+
+const editCardQuestion = (e) => {
+	e.target.addEventListener('focusout', (e) => {
+		e.target.value === '' && (editCardQuestionInput.value = previousEditCardQuestionInput);
+	});
+
+	e.target.value !== '' && (previousEditCardQuestionInput = editCardQuestionInput.value);
+
+	Array.from(editCardList.children).forEach(li => {
+		if (li.classList.contains('editing-card')) {
+			Array.from(li.children)[1].textContent = truncateString(capitalize(previousEditCardQuestionInput));
+		};
+	});
+
+};
+
+
+const editCardAnswer = (e) => {
+	
+	e.target.addEventListener('focusout', (e) => {
+		e.target.value === '' && (editCardAnswerInput.value = capitalize(previousEditCardAnswerInput));
+	});
+
+	e.target.value !== '' && (previousEditCardAnswerInput = capitalize(editCardAnswerInput.value));
+	
+	Array.from(editCardList.children).forEach(li => {
+		if (li.classList.contains('editing-card')) {
+			Array.from(li.children)[2].textContent = truncateString(previousEditCardAnswerInput);
+		};
+	});
+
+};
+
+const saveEditDeckTitle = () => getSelectedDeck().topic = editDeckTitleInput.value;
+
+
+const saveEditDeckCard = () => {
+	if (!selectedEditCardIndex) return;
+	const editingCardData = getSelectedDeck().cards[selectedEditCardIndex];
+	console.log(getSelectedDeck().cards);
+	console.log(selectedEditCardIndex);
+	editingCardData.question = editCardQuestionInput.value;
+	editingCardData.answer = editCardAnswerInput.value;
+};
 
 const populateEditDeckCardList = () => {
 	editCardList.innerHTML = '';
-	const selectedDeck = decks.find(deck => deck.topic === selectEditMenu.value);
-
-	selectedDeck.cards.forEach((card, index) => {
+	getSelectedDeck().cards.forEach((card, index) => {
 		const cardLi = document.createElement('li');
+		cardLi.className = 'card';
 		cardLi.innerHTML = 
 		`
 			<span>${index + 1}</span>
-			<span>${card.question}</span>
-			<span>${card.answer}</span>
+			<span title="${capitalize(card.question)}">${truncateString(capitalize(card.question))}</span>
+			<span title="${capitalize(card.answer)}">${truncateString(capitalize(card.answer))}</span>
+			<span id="edit-deck-edit-card-btn" class="edit-deck-edit-card-btn">
+				<i class="fa-solid fa-pen-to-square"></i>
+			</span>
 			<span id="edit-deck-delete-card-btn" class="edit-deck-delete-card-btn">
 				<i class="fa-solid fa-xmark"></i>
 			</span>
@@ -327,57 +427,54 @@ const populateEditDeckCardList = () => {
 	});
 };
 
+
+const updateCardIndex = () => {
+	Array.from(editCardList.children).forEach((card, index) => {
+		card.firstElementChild.textContent = index + 1;
+	});
+};
+
 const editDeckDeleteCard = (e) => {
-	const selectedDeck = decks.find(deck => deck.topic === sectionEditDeckTitle.textContent);
-	console.log(selectedDeck);
 	if (e.target.parentElement.classList.contains('edit-deck-delete-card-btn')) {
 		const cardLi = e.target.parentElement.parentElement;
 		const targetCardIndex = cardLi.firstElementChild.textContent;
 		cardLi.remove();
-		// selectedDeck.cards.splice(targetCardIndex - 1, 1);
-		console.log(selectedDeck);
-	};
-
-	if (e.target.parentElement.classList.contains('edit-deck__save-btn')) {
-		e.target.addEventListener('click', (e) => {
-			// updateDecks(selectEditMenu.value, selectedDeck);
-			// updateLS();
-			resetEditDeckSection();
-		})
+		getSelectedDeck().cards.splice(targetCardIndex - 1, 1);
+		updateCardIndex();
 	};
 };
-
-const editDeckEditCard = () => {
-	
-}
-
-// const updateDecks = (topic, newDeck) => {
-// 	decks.forEach(deck => {
-// 		if (deck.topic === topic) {
-// 			deck = newDeck
-// 			console.log(deck);
-// 		};
-// 	});
-// };
-
 
 const updateLS = () => {
 	localStorage.setItem('decks', JSON.stringify(decks));
-
 };
-
 
 const resetEditDeckSection = () => {
 	sectionEditDeckTitle.textContent = '';
 	editDeckTitleInput.value = '';
-	editCardIndexInput.value = '';
 	editCardQuestionInput.value = '';
 	editCardAnswerInput.value = '';
 	editCardList.innerHTML = '';
 }
 
+const editDeckSaveChanges = () => {
+	saveEditDeckTitle();
+	saveEditDeckCard();
+	updateLS();
+	returnToMainMenu();
+	resetEditDeckSection();
+	populateSectionMainMenus();
+};
+
 // ===== Event Listeners =====
-editCardList.addEventListener('click', editDeckDeleteCard);
+editCardList.addEventListener('click', (e) => {
+	editDeckDeleteCard(e);
+	editDeckEditCard(e);
+});
+editDeckSaveBtn.addEventListener('click', editDeckSaveChanges);
+editDeckTitleInput.addEventListener('input', editDeckTitle);
+editCardQuestionInput.addEventListener('input', editCardQuestion);
+editCardAnswerInput.addEventListener('input', editCardAnswer);
+
 
 
 

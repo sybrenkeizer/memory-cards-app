@@ -259,7 +259,7 @@ a {
 }
 .section-edit .edit-card-header {
   display: grid;
-  grid-template-columns: 3rem 1fr 1fr 2rem;
+  grid-template-columns: 2rem 1fr 1fr 2rem 2rem;
   font-weight: 700;
   height: 0.8rem;
   padding-inline: 0.4em;
@@ -270,7 +270,7 @@ a {
 }
 .section-edit ul li {
   display: grid;
-  grid-template-columns: 3rem 1fr 1fr 2rem;
+  grid-template-columns: 2rem 1fr 1fr 2rem 2rem;
   margin-block: 0.3em;
   padding: 0.2em 0.4em;
   border: 0.1rem solid transparent;
@@ -281,13 +281,17 @@ a {
 .section-edit ul li:hover {
   border: 0.1rem solid hsl(259deg, 73%, 9%);
 }
-.section-edit ul li:hover .edit-deck-delete-card-btn {
+.section-edit ul li:hover .edit-deck-edit-card-btn, .section-edit ul li:hover .edit-deck-delete-card-btn {
   visibility: visible;
 }
+.section-edit ul li .edit-deck-edit-card-btn,
 .section-edit ul li .edit-deck-delete-card-btn {
   visibility: hidden;
   transition: visibility 0.1s ease-in-out;
   text-align: center;
+}
+.section-edit ul .editing-card {
+  border: 0.1rem solid hsl(259deg, 73%, 9%);
 }
 
 .section-practice .cards-container {
