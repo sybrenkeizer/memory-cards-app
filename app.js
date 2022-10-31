@@ -1,3 +1,8 @@
+// TODO - BUG: question and answer edit deck inputs, empty field should return former string
+// TODO - BUG: edit multiple cards at once
+// TODO - BUG: edit title and cards at same time not possible
+// TODO = BUG: edited title is lowercase in menu
+
 // ==================
 // ===== Global =====
 // ==================
@@ -59,7 +64,7 @@ const exitSection = (e) => {
 
 const capitalize = (string) => string[0].toUpperCase().concat(string.slice(1).toLowerCase());
 
-const truncateString = (string) => string.length > 20 ? string.substring(0, 20) + '...' : string;
+const truncateString = (string) => string.length > 17 ? string.substring(0, 17) + '...' : string;
 
 // ===== Event Listeners =====
 exitSectionBtns.forEach(btn => btn.addEventListener('click', exitSection));
@@ -92,10 +97,10 @@ const validateSelectMenu = (e) => {
 	if (siblingEl.value === "") {
 		popup.textContent = siblingEl.firstElementChild.textContent;
 		showPopup();
-		siblingEl.style.color = "red";
+		siblingEl.style.color = "hsl(173, 76%, 62%)";
 		setTimeout(() => {
 			hidePopup();
-			siblingEl.style.color = "#fff";
+			siblingEl.style.color = "hsl(253, 60%, 11%)";
 		}, 4000);
 		return false;
 	} else {
@@ -109,7 +114,7 @@ const validateTextInput = (e) => {
 		showPopup;
 		siblingEl.classList.add("mark-placeholder");
 		setTimeout(() => {
-			siblingEl.style.color = "#fff";
+			siblingEl.style.color = "hsl(253, 60%, 11%)";
 			siblingEl.classList.remove("mark-placeholder");
 			removePopup;
 		}, 4000);
@@ -163,6 +168,7 @@ const openPracticeDeckSection = (e) => {
 
 const deleteDeck = (e) => {
 	e.preventDefault();
+	if (!validateSelectMenu(e)) return;
 	const selectedDeck = decks.find(deck => deck.topic === selectDeleteMenu.value)
 	const removeDeckIndex = decks.indexOf(selectedDeck);
 	decks.splice(removeDeckIndex, 1);
@@ -398,10 +404,8 @@ const saveEditDeckTitle = () => getSelectedDeck().topic = editDeckTitleInput.val
 
 
 const saveEditDeckCard = () => {
-	if (!selectedEditCardIndex) return;
+	if (selectedEditCardIndex === undefined) return;
 	const editingCardData = getSelectedDeck().cards[selectedEditCardIndex];
-	console.log(getSelectedDeck().cards);
-	console.log(selectedEditCardIndex);
 	editingCardData.question = editCardQuestionInput.value;
 	editingCardData.answer = editCardAnswerInput.value;
 };
@@ -564,12 +568,21 @@ const resetPracticeDeckSection = () => {
 	cardsContainer.innerHTML = '';
 }
 
-const exitPracticeDeckSection = () => {
-}
 
 // ===== Event Listeners =====
 prevCardBtn.addEventListener('click', showPreviousCard);
 nextCardBtn.addEventListener('click', showNextCard);
+
+
+
+// ===============================
+// ===== Custom Select Menus =====
+// ===============================
+
+
+
+
+
 
 
 
@@ -579,11 +592,6 @@ nextCardBtn.addEventListener('click', showNextCard);
 // ===== Initialize =====
 // ======================
 
-const initialize = () => {
-	// populateSelectPracticeMenu();
-	// populateSelectEditMenu();
-
-	populateSectionMainMenus();
-}
+const initialize = () => populateSectionMainMenus();
 
 window.addEventListener('DOMContentLoaded', initialize);

@@ -15,11 +15,13 @@ $fw-thick: 500;
 $fw-bold: 700;
 
 // Color
-$clr-white: hsl(0, 0%, 100%);
 $clr-light: hsl(0, 0%, 94%);
-$clr-dark: hsl(259, 73%, 9%);
-$clr-accent-light: hsl(282, 100%, 84%);
-$clr-accent-dark: hsl(270, 56%, 35%);
+$clr-dark: hsl(253, 60%, 11%);
+$clr-accent-main: hsl(289, 74%, 57%);
+$clr-accent-warm: hsl(36, 94%, 52%);
+$clr-accent-cold: hsl(173, 76%, 62%);
+$clr-success: hsl(118, 100%, 35%);
+$clr-error: hsl(0, 100%, 37%);
 
 // Border radius
 $radius: 0.35rem;

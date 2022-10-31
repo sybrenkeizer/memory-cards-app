@@ -38,6 +38,7 @@
     font-weight: v.$fw-bold;
     height: 0.8rem;
     padding-inline: 0.4em;
+    color: v.$clr-accent-main;
   }
   
   .add-card-header.show {
@@ -56,6 +57,7 @@
       border: 0.1rem solid transparent;
       border-radius: v.$radius;
       transition: border 0.1s ease-in-out;
+      color: v.$clr-accent-cold;
       cursor: pointer;
       
       &:hover {
@@ -74,23 +76,28 @@
   .form-control {
 
     label {
-      width: 30%;
+      width: 25%;
+      display: flex;
+      align-items: center;
+      background-color: v.$clr-accent-main;
+      font-weight: v.$fw-thick;
     }
     
     input,
     textarea {
-      width: 70%;
+      width: 75%;
       background-color: v.$clr-dark;
-      color: v.$clr-light;
+      color: v.$clr-accent-cold;
     }
   }
 
   .edit-card-header {
+    height: 0.8rem;
     display: grid;
     grid-template-columns: 2rem 1fr 1fr 2rem 2rem;
-    font-weight: v.$fw-bold;
-    height: 0.8rem;
     padding-inline: 0.4em;
+    font-weight: v.$fw-bold;
+    color: v.$clr-accent-main;
   }
 
   ul {
@@ -105,10 +112,11 @@
       border: 0.1rem solid transparent;
       border-radius: v.$radius;
       transition: border 0.1s ease-in-out;
+      color: v.$clr-accent-cold;
       cursor: pointer;
       
       &:hover {
-        border: 0.1rem solid v.$clr-dark;
+        border: 0.1rem solid v.$clr-accent-cold;
       }
 
       &:hover .edit-deck-edit-card-btn,
@@ -125,7 +133,12 @@
 
     }
     .editing-card {
-      border: 0.1rem solid v.$clr-dark;
+      border: 0.1rem solid v.$clr-accent-cold;
+    }
+
+    .editing-card .edit-deck-edit-card-btn,
+    .editing-card .edit-deck-delete-card-btn {
+      visibility: visible;
     }
   }
 }
@@ -157,8 +170,9 @@
         height: 100%;
         position: relative;
         background-color: v.$clr-dark;
+        border: 0.1rem solid v.$clr-accent-cold;
         border-radius: v.$radius;
-        color: v.$clr-light;
+        color: v.$clr-accent-cold;
         transform-style: preserve-3d;
         transition: transform 0.5s ease-in-out;
 
@@ -211,6 +225,7 @@
     display: flex;
     justify-content: space-around;
     margin-inline: auto;
+    color: v.$clr-accent-main;
   }
 }
 

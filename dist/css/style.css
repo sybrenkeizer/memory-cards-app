@@ -84,6 +84,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: hsl(253deg, 60%, 11%);
 }
 
 .section {
@@ -92,13 +93,14 @@ a {
   display: flex;
   flex-direction: column;
   padding: calc(clamp(0.5rem, 0.4rem + 0.3vw, 1rem) * 2);
-  background-color: hsl(0deg, 0%, 94%);
-  border: 0.25rem solid hsl(259deg, 73%, 9%);
+  background-color: hsl(253deg, 60%, 11%);
+  border: 0.25rem solid hsl(289deg, 74%, 57%);
   border-radius: 0.35rem;
 }
 .section .section-title-header {
   position: relative;
   text-align: center;
+  color: hsl(289deg, 74%, 57%);
 }
 .section .section-title-header .exit-section-btn {
   position: absolute;
@@ -106,15 +108,19 @@ a {
   left: 0;
   transform: rotate(180deg);
   font-size: 1.4em;
+  transition: color 0.3s ease;
+}
+.section .section-title-header .exit-section-btn:hover {
+  color: hsl(36deg, 94%, 52%);
 }
 
 .form-control {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border: 0.15rem solid hsl(259deg, 73%, 9%);
+  border: 0.15rem solid hsl(289deg, 74%, 57%);
   border-radius: 0.35rem;
-  color: hsl(259deg, 73%, 9%);
+  color: hsl(253deg, 60%, 11%);
   transition: box-shadow 0.3s ease-in-out;
 }
 .form-control:hover {
@@ -129,24 +135,28 @@ a {
 }
 .form-control select,
 .form-control input {
-  background-color: hsl(259deg, 73%, 9%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: hsl(289deg, 74%, 57%);
+  color: hsl(253deg, 60%, 11%);
   transition: color 0.3s ease-in-out;
+  font-weight: 500;
 }
 .form-control button {
   width: 100%;
-  background-color: hsl(0deg, 0%, 94%);
-  color: hsl(259deg, 73%, 9%);
+  background-color: transparent;
+  color: hsl(173deg, 76%, 62%);
   font-weight: 500;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   cursor: pointer;
 }
 .form-control button:hover {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: rgb(112, 49, 118);
+  color: hsl(0deg, 0%, 94%);
 }
 .form-control textarea {
   resize: none;
   width: 100%;
+  background-color: transparent;
+  color: hsl(173deg, 76%, 62%);
 }
 
 .popup {
@@ -156,9 +166,10 @@ a {
   left: 50%;
   transform: translate(-50%, -100%);
   padding: 1.5em;
-  background-color: hsl(259deg, 73%, 9%);
+  background-color: hsl(253deg, 60%, 11%);
+  border: 0.2rem solid hsl(36deg, 94%, 52%);
   border-radius: 0.35rem;
-  color: hsl(0deg, 0%, 94%);
+  color: hsl(36deg, 94%, 52%);
   font-weight: 500;
   text-align: center;
   transition: transform 0.3s ease-in-out;
@@ -171,34 +182,74 @@ a {
   display: flex;
   justify-content: space-around;
   gap: 1rem;
-  color: hsl(0deg, 0%, 94%);
 }
 .popup .buttons button {
   padding: 0.7em 1.2em;
-  background-color: hsl(259deg, 73%, 9%);
-  border: 0.1rem solid hsl(0deg, 0%, 100%);
+  background-color: hsl(253deg, 60%, 11%);
+  border: 0.1rem solid hsl(36deg, 94%, 52%);
   cursor: pointer;
+  transition: border 0.3s ease, color 0.3s ease;
+}
+.popup .buttons button:first-child:hover {
+  border: 0.1rem solid hsl(0deg, 100%, 37%);
+  color: hsl(0deg, 100%, 37%);
+}
+.popup .buttons button:last-child:hover {
+  border: 0.1rem solid hsl(118deg, 100%, 35%);
+  color: hsl(118deg, 100%, 35%);
 }
 
 .popup.show {
   transform: translate(-50%, 0);
 }
 
+::-moz-placeholder {
+  color: hsl(253deg, 60%, 11%);
+}
+
+:-ms-input-placeholder {
+  color: hsl(253deg, 60%, 11%);
+}
+
+::placeholder {
+  color: hsl(253deg, 60%, 11%);
+}
+
 .mark-placeholder::-moz-placeholder {
-  color: red;
+  color: hsl(173deg, 76%, 62%);
   opacity: 1;
 }
 
 .mark-placeholder:-ms-input-placeholder {
-  color: red;
+  color: hsl(173deg, 76%, 62%);
   opacity: 1;
 }
 
 .mark-placeholder::placeholder {
-  color: red;
+  color: hsl(173deg, 76%, 62%);
   opacity: 1;
 }
 
+::-webkit-scrollbar {
+  width: 0.9rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(289deg, 74%, 57%);
+  border: 0.3rem solid hsl(253deg, 60%, 11%);
+  border-radius: 100vw;
+}
+
+::-webkit-scrollbar-track {
+  background-color: hsl(253deg, 60%, 11%);
+}
+
+@supports (scrollbar-color: hsl(253deg, 60%, 11%) hsl(253deg, 60%, 11%)) {
+  * {
+    scrollbar-color: hsl(289deg, 74%, 57%) hsl(289deg, 74%, 57%);
+    scrollbar-width: auto;
+  }
+}
 .section-main {
   gap: calc(clamp(0.5rem, 0.4rem + 0.3vw, 1rem) * 3);
 }
@@ -223,6 +274,7 @@ a {
   font-weight: 700;
   height: 0.8rem;
   padding-inline: 0.4em;
+  color: hsl(289deg, 74%, 57%);
 }
 .section-create .add-card-header.show {
   visibility: visible;
@@ -239,30 +291,36 @@ a {
   border: 0.1rem solid transparent;
   border-radius: 0.35rem;
   transition: border 0.1s ease-in-out;
+  color: hsl(173deg, 76%, 62%);
   cursor: pointer;
 }
 .section-create ul li:hover {
-  border: 0.1rem solid hsl(259deg, 73%, 9%);
+  border: 0.1rem solid hsl(253deg, 60%, 11%);
 }
 
 .section-edit {
   gap: clamp(0.5rem, 0.4rem + 0.3vw, 1rem);
 }
 .section-edit .form-control label {
-  width: 30%;
+  width: 25%;
+  display: flex;
+  align-items: center;
+  background-color: hsl(289deg, 74%, 57%);
+  font-weight: 500;
 }
 .section-edit .form-control input,
 .section-edit .form-control textarea {
-  width: 70%;
-  background-color: hsl(259deg, 73%, 9%);
-  color: hsl(0deg, 0%, 94%);
+  width: 75%;
+  background-color: hsl(253deg, 60%, 11%);
+  color: hsl(173deg, 76%, 62%);
 }
 .section-edit .edit-card-header {
+  height: 0.8rem;
   display: grid;
   grid-template-columns: 2rem 1fr 1fr 2rem 2rem;
-  font-weight: 700;
-  height: 0.8rem;
   padding-inline: 0.4em;
+  font-weight: 700;
+  color: hsl(289deg, 74%, 57%);
 }
 .section-edit ul {
   height: 14rem;
@@ -276,10 +334,11 @@ a {
   border: 0.1rem solid transparent;
   border-radius: 0.35rem;
   transition: border 0.1s ease-in-out;
+  color: hsl(173deg, 76%, 62%);
   cursor: pointer;
 }
 .section-edit ul li:hover {
-  border: 0.1rem solid hsl(259deg, 73%, 9%);
+  border: 0.1rem solid hsl(173deg, 76%, 62%);
 }
 .section-edit ul li:hover .edit-deck-edit-card-btn, .section-edit ul li:hover .edit-deck-delete-card-btn {
   visibility: visible;
@@ -291,7 +350,11 @@ a {
   text-align: center;
 }
 .section-edit ul .editing-card {
-  border: 0.1rem solid hsl(259deg, 73%, 9%);
+  border: 0.1rem solid hsl(173deg, 76%, 62%);
+}
+.section-edit ul .editing-card .edit-deck-edit-card-btn,
+.section-edit ul .editing-card .edit-deck-delete-card-btn {
+  visibility: visible;
 }
 
 .section-practice .cards-container {
@@ -313,9 +376,10 @@ a {
   width: 100%;
   height: 100%;
   position: relative;
-  background-color: hsl(259deg, 73%, 9%);
+  background-color: hsl(253deg, 60%, 11%);
+  border: 0.1rem solid hsl(173deg, 76%, 62%);
   border-radius: 0.35rem;
-  color: hsl(0deg, 0%, 94%);
+  color: hsl(173deg, 76%, 62%);
   transform-style: preserve-3d;
   transition: transform 0.5s ease-in-out;
 }
@@ -358,4 +422,5 @@ a {
   display: flex;
   justify-content: space-around;
   margin-inline: auto;
+  color: hsl(289deg, 74%, 57%);
 }/*# sourceMappingURL=style.css.map */

@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: v.$clr-dark;
 }
 
 .section {
@@ -13,13 +14,14 @@
   display: flex;  
   flex-direction: column;
   padding: v.$spc-md;
-  background-color: v.$clr-light;
-  border: 0.25rem solid v.$clr-dark;
+  background-color: v.$clr-dark;
+  border: 0.25rem solid v.$clr-accent-main;
   border-radius: v.$radius;
 
   .section-title-header {
     position: relative;
     text-align: center;
+    color: v.$clr-accent-main;
     
     .exit-section-btn {
       position: absolute;
@@ -27,6 +29,11 @@
       left: 0;
       transform: rotate(180deg);
       font-size: 1.4em;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: v.$clr-accent-warm;
+      }
     }
   }
 }
@@ -35,7 +42,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border: 0.15rem solid v.$clr-dark;
+  border: 0.15rem solid v.$clr-accent-main;
   border-radius: v.$radius;
   color: v.$clr-dark;
   transition: box-shadow 0.3s ease-in-out;
@@ -54,27 +61,33 @@
 
   select,
   input {
-    background-color: v.$clr-dark;
-    color: v.$clr-white;
+    background-color: v.$clr-accent-main;
+    color: v.$clr-dark;
     transition: color 0.3s ease-in-out;
+    font-weight: v.$fw-thick;
   }
   
   button {
     width: 100%;
-    background-color: v.$clr-light;
-    color: v.$clr-dark;
+    background-color: transparent;
+    color: v.$clr-accent-cold;
     font-weight: v.$fw-thick;
-    transition: background-color 0.3s ease-in-out;
+    transition: 
+      background-color 0.3s ease-in-out,
+      color 0.3s ease-in-out;
     cursor: pointer;
 
     &:hover {
-      background-color: v.$clr-white;
+      background-color: rgb(112, 49, 118);
+      color: v.$clr-light;
     }
   }
 
   textarea {
     resize: none;
     width: 100%;
+    background-color: transparent;
+    color: v.$clr-accent-cold;
   }
 }
 
@@ -86,8 +99,9 @@
   transform: translate(-50%, -100%);
   padding: 1.5em;
   background-color: v.$clr-dark;
+  border: 0.2rem solid v.$clr-accent-warm;
   border-radius: v.$radius;
-  color: v.$clr-light;
+  color: v.$clr-accent-warm ;
   font-weight: v.$fw-thick;
   text-align: center;
   transition: transform 0.3s ease-in-out;
@@ -101,14 +115,27 @@
     display: flex;
     justify-content: space-around;
     gap: 1rem;
-    color: v.$clr-light;
 
     button {
       padding: 0.7em 1.2em;
       background-color: v.$clr-dark;
-      border: 0.1rem solid v.$clr-white;
+      border: 0.1rem solid v.$clr-accent-warm;
       cursor: pointer;
+      transition: 
+        border 0.3s ease,
+        color 0.3s ease;
     }
+    
+    button:first-child:hover {
+      border: 0.1rem solid v.$clr-error;
+      color: v.$clr-error;
+    }
+    
+    button:last-child:hover {
+    border: 0.1rem solid v.$clr-success;
+      color: v.$clr-success;
+    }
+   
   }
 }
 
@@ -116,7 +143,33 @@
   transform: translate(-50%, 0);
 }
 
+::placeholder{
+  color: v.$clr-dark;
+}
+
+
 .mark-placeholder::placeholder {
-  color: red;
+  color: v.$clr-accent-cold;
   opacity: 1;
+}
+
+
+// Scrollbar
+
+::-webkit-scrollbar {
+	width: 0.9rem;
+}
+::-webkit-scrollbar-thumb {
+	background-color: v.$clr-accent-main;
+	border: 0.3rem solid v.$clr-dark;
+	border-radius: 100vw;
+}
+::-webkit-scrollbar-track {
+	background-color: v.$clr-dark;
+}
+@supports (scrollbar-color: v.$clr-dark v.$clr-dark) {
+	* {
+		scrollbar-color: v.$clr-accent-main v.$clr-accent-main;
+		scrollbar-width: auto;
+	}
 }
